@@ -1,5 +1,6 @@
 package com.example.johnelmo.seefoodapplication;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -23,22 +24,37 @@ public class MainActivity extends AppCompatActivity {
         selectImageFab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(MainActivity.this, "You selected ImageFab", Toast.LENGTH_SHORT).show();
+                changeToImageSelectActivity(view);
             }
         });
 
         selectCameraFab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(MainActivity.this, "You selected CameraFab", Toast.LENGTH_SHORT).show();
+                changeToCameraActivity(view);
             }
         });
 
         selectBrowseFab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(MainActivity.this, "You selected BrowseFab", Toast.LENGTH_SHORT).show();
+                changeToBrowseSubmissionsActivity(view);
             }
         });
+    }
+
+    public void changeToImageSelectActivity(View view) {
+        Intent intent = new Intent(this, ImageSelectActivity.class);
+        startActivity(intent);
+    }
+
+    public void changeToCameraActivity(View view) {
+        Intent intent = new Intent(this, CameraActivity.class);
+        startActivity(intent);
+    }
+
+    public void changeToBrowseSubmissionsActivity(View view) {
+        Intent intent = new Intent(this, BrowseSubmissionsActivity.class);
+        startActivity(intent);
     }
 }
