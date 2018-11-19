@@ -74,7 +74,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="64dp"
+        android:layout_marginTop="20dp"
         android:text="Select Image"
         android:textSize="24sp" />
 
@@ -87,5 +87,31 @@
         android:layout_marginEnd="8dp"
         android:layout_marginTop="12dp"
         fab:srcCompat="@drawable/help_icon" />
+
+    <Button
+        android:id="@+id/Gallerybtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/HelpIcon"
+        android:layout_centerHorizontal="true"
+        android:text="Browse gallery"></Button>
+
+    <ImageView
+        android:id="@+id/GalleryPreview"
+        android:layout_width="300dp"
+        android:layout_height="300dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="93dp" />
+
+    <Button
+        android:id="@+id/SubmitBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="37dp"
+        android:text="Submit" />
+
 
 </RelativeLayout>
