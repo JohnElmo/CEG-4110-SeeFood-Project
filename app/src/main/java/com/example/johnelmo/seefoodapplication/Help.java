@@ -4,38 +4,37 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.widget.ImageButton;
 
+import com.github.clans.fab.FloatingActionButton;
 
+public class Help extends AppCompatActivity {
 
-public class MainActivity extends AppCompatActivity {
-
-    ImageButton selectImage, selectCamera, selectBrowse;
+    FloatingActionButton selectImageFab, selectCameraFab, selectBrowseFab;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        selectImage = (ImageButton) findViewById(R.id.ImageSelect);
-        selectCamera = (ImageButton) findViewById(R.id.CameraSelect);
-        selectBrowse = (ImageButton) findViewById(R.id.BrowseSubmissions);
+        selectImageFab = (FloatingActionButton) findViewById(R.id.fab_ImageSelect);
+        selectCameraFab = (FloatingActionButton) findViewById(R.id.fab_CameraSelect);
+        selectBrowseFab = (FloatingActionButton) findViewById(R.id.fab_BrowseSubmissions);
 
-        selectImage.setOnClickListener(new View.OnClickListener() {
+        selectImageFab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 changeToImageSelectActivity(view);
             }
         });
 
-        selectCamera.setOnClickListener(new View.OnClickListener() {
+        selectCameraFab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 changeToCameraActivity(view);
             }
         });
 
-        selectBrowse.setOnClickListener(new View.OnClickListener() {
+        selectBrowseFab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 changeToBrowseSubmissionsActivity(view);
