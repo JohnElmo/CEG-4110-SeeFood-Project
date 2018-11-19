@@ -35,7 +35,9 @@
         </activity>
         <activity android:name=".ImageSelectActivity" />
         <activity android:name=".CameraActivity" />
-        <activity android:name=".BrowseSubmissionsActivity"></activity>
+        <activity android:name=".BrowseSubmissionsActivity"/>
+        <activity android:name=".Help">
+        </activity>
     </application>
 
 </manifest>

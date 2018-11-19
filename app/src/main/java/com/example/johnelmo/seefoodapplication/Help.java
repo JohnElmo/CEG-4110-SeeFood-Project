@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
+
 import com.github.clans.fab.FloatingActionButton;
 
 public class Help extends AppCompatActivity {
@@ -14,7 +15,7 @@ public class Help extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.help);
 
         selectImageFab = (FloatingActionButton) findViewById(R.id.fab_ImageSelect);
         selectCameraFab = (FloatingActionButton) findViewById(R.id.fab_CameraSelect);

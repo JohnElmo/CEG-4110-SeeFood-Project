@@ -10,7 +10,7 @@ import android.widget.ImageButton;
 
 public class MainActivity extends AppCompatActivity {
 
-    ImageButton selectImage, selectCamera, selectBrowse;
+    ImageButton selectImage, selectCamera, selectBrowse ,selectHelp;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,6 +20,7 @@ public class MainActivity extends AppCompatActivity {
         selectImage = (ImageButton) findViewById(R.id.ImageSelect);
         selectCamera = (ImageButton) findViewById(R.id.CameraSelect);
         selectBrowse = (ImageButton) findViewById(R.id.BrowseSubmissions);
+        selectHelp = (ImageButton) findViewById(R.id.HelpIcon);
 
         selectImage.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -41,6 +42,15 @@ public class MainActivity extends AppCompatActivity {
                 changeToBrowseSubmissionsActivity(view);
             }
         });
+        selectHelp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                changeToHelp(view);
+            }
+
+        });
+
     }
 
     public void changeToImageSelectActivity(View view) {
@@ -57,4 +67,10 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(this, BrowseSubmissionsActivity.class);
         startActivity(intent);
     }
+    public void changeToHelp(View view) {
+        Intent intent = new Intent(this, Help.class);
+        startActivity(intent);
+    }
+
+
 }
