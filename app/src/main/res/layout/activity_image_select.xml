@@ -78,4 +78,14 @@
         android:text="Select Image"
         android:textSize="24sp" />
 
+    <ImageButton
+        android:id="@+id/HelpIcon"
+        android:layout_width="52dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginEnd="8dp"
+        android:layout_marginTop="12dp"
+        fab:srcCompat="@drawable/help_icon" />
+
 </RelativeLayout>

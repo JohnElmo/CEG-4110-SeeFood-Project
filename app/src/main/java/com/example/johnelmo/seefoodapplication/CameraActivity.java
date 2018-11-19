@@ -11,6 +11,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 
 import com.github.clans.fab.FloatingActionButton;
@@ -25,6 +26,7 @@ public class CameraActivity extends AppCompatActivity {
     FloatingActionButton selectHomeFab, selectImageFab, selectBrowseFab;
     Button capture;
     ImageView mImageView;
+    ImageButton selectHelp;
 
     String mCurrentPhotoPath;
     static final int REQUEST_TAKE_PHOTO = 1;
@@ -47,6 +49,7 @@ public class CameraActivity extends AppCompatActivity {
         selectHomeFab = (FloatingActionButton) findViewById(R.id.fab_Camera_HomeSelect);
         selectImageFab = (FloatingActionButton) findViewById(R.id.fab_Camera_ImageSelect);
         selectBrowseFab = (FloatingActionButton) findViewById(R.id.fab_Camera_BrowseSubmissions);
+        selectHelp = (ImageButton) findViewById(R.id.HelpIcon);
 
         selectHomeFab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -68,6 +71,15 @@ public class CameraActivity extends AppCompatActivity {
                 changeToBrowseSubmissionsActivity(view);
             }
         });
+        selectHelp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                changeToHelp(view);
+            }
+
+        });
+
     }
 
     public void changeToMainActivity(View view) {
@@ -82,6 +94,10 @@ public class CameraActivity extends AppCompatActivity {
 
     public void changeToBrowseSubmissionsActivity(View view) {
         Intent intent = new Intent(this, BrowseSubmissionsActivity.class);
+        startActivity(intent);
+    }
+    public void changeToHelp(View view) {
+        Intent intent = new Intent(this, Help.class);
         startActivity(intent);
     }
 
