@@ -142,12 +142,12 @@ public class CameraActivity extends AppCompatActivity {
         this.sendBroadcast(mediaScanIntent);
     }
 
-//    @Override
-//    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-//        if (requestCode == REQUEST_TAKE_PHOTO && resultCode == RESULT_OK) {
-//            Bundle extras = data.getExtras();
-//            Bitmap imageBitmap = (Bitmap) extras.get("data");
-//            mImageView.setImageBitmap(imageBitmap);
-//        }
-//    }
+  // @Override
+  // protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+   //    if (requestCode == REQUEST_TAKE_PHOTO && resultCode == RESULT_OK) {
+   //         Bundle extras = data.getExtras();
+   //        Bitmap imageBitmap = (Bitmap) extras.get("data");
+    //       mImageView.setImageBitmap(imageBitmap);
+    //   }
+  // }
 }
