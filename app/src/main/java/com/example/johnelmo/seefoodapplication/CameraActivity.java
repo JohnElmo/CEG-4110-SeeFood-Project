@@ -3,6 +3,8 @@ package com.example.johnelmo.seefoodapplication;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.media.ThumbnailUtils;
 import android.net.Uri;
 import android.os.Environment;
 import android.provider.MediaStore;
@@ -16,19 +18,34 @@ import android.widget.ImageView;
 
 import com.github.clans.fab.FloatingActionButton;
 
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
+import org.apache.http.client.ClientProtocolException;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.mime.MultipartEntity;
+import org.apache.http.entity.mime.content.ContentBody;
+import org.apache.http.entity.mime.content.FileBody;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.File;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class CameraActivity extends AppCompatActivity {
 
     FloatingActionButton selectHomeFab, selectImageFab, selectBrowseFab;
-    Button capture;
+    Button capture, submit;
     ImageView mImageView;
     ImageButton selectHelp;
 
-    String mCurrentPhotoPath;
+    String url = "http://18.191.74.137";
+    String mCurrentPhotoPath = "";
+    static JSONObject jsonObjectResult;
     static final int REQUEST_TAKE_PHOTO = 1;
 
     @Override
@@ -43,6 +60,18 @@ public class CameraActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 dispatchTakePictureIntent();
+            }
+        });
+
+        submit = findViewById(R.id.submitButton);
+        submit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String url_input = "/input";
+                if (!mCurrentPhotoPath.equals("")) {
+                    jsonObjectResult = postFile(url + url_input, mCurrentPhotoPath);
+                    changeToResultActivity(view);
+                }
             }
         });
 
@@ -71,13 +100,12 @@ public class CameraActivity extends AppCompatActivity {
                 changeToBrowseSubmissionsActivity(view);
             }
         });
+
         selectHelp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 changeToHelp(view);
             }
-
         });
 
     }
@@ -96,6 +124,12 @@ public class CameraActivity extends AppCompatActivity {
         Intent intent = new Intent(this, BrowseSubmissionsActivity.class);
         startActivity(intent);
     }
+
+    public void changeToResultActivity(View view) {
+        Intent intent = new Intent(this, ResultActivity.class);
+        startActivity(intent);
+    }
+
     public void changeToHelp(View view) {
         Intent intent = new Intent(this, Help.class);
         startActivity(intent);
@@ -142,12 +176,44 @@ public class CameraActivity extends AppCompatActivity {
         this.sendBroadcast(mediaScanIntent);
     }
 
-  // @Override
-  // protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-   //    if (requestCode == REQUEST_TAKE_PHOTO && resultCode == RESULT_OK) {
-   //         Bundle extras = data.getExtras();
-   //        Bitmap imageBitmap = (Bitmap) extras.get("data");
-    //       mImageView.setImageBitmap(imageBitmap);
-    //   }
-  // }
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+       if (requestCode == REQUEST_TAKE_PHOTO && resultCode == RESULT_OK) {
+           int thumbSize = 64;
+           Bitmap thumbBitmap= ThumbnailUtils.extractThumbnail(BitmapFactory.decodeFile(mCurrentPhotoPath),
+                   thumbSize, thumbSize);
+           mImageView.setImageBitmap(thumbBitmap);
+       }
+   }
+
+    public JSONObject postFile(String url, String filePath) {
+        String result = "";
+        HttpClient httpClient = new DefaultHttpClient();
+        HttpPost httpPost = new HttpPost(url);
+        File file = new File(filePath);
+        MultipartEntity mpEntity = new MultipartEntity();
+        ContentBody cbFile = new FileBody(file, "image/jpeg");
+        JSONObject responseObject = null;
+        try {
+            mpEntity.addPart("file", cbFile);
+            httpPost.setEntity(mpEntity);
+            HttpResponse response = httpClient.execute(httpPost);
+            HttpEntity resEntity = response.getEntity();
+            result = resEntity.toString();
+            responseObject = new JSONObject(result);
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        } catch (ClientProtocolException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return responseObject;
+    }
+
+    public static JSONObject getJsonObjectResult() {
+        return jsonObjectResult;
+    }
 }

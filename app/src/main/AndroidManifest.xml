@@ -12,7 +12,6 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
         <provider
             android:name="android.support.v4.content.FileProvider"
             android:authorities="com.example.android.fileprovider"
@@ -20,7 +19,7 @@
             android:grantUriPermissions="true">
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
-                android:resource="@xml/file_paths"></meta-data>
+                android:resource="@xml/file_paths" />
         </provider>
 
         <activity
@@ -35,9 +34,9 @@
         </activity>
         <activity android:name=".ImageSelectActivity" />
         <activity android:name=".CameraActivity" />
-        <activity android:name=".BrowseSubmissionsActivity"/>
-        <activity android:name=".Help">
-        </activity>
+        <activity android:name=".BrowseSubmissionsActivity" />
+        <activity android:name=".Help"></activity>
+        <activity android:name=".ResultActivity"></activity>
     </application>
 
 </manifest>
