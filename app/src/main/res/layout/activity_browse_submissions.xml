@@ -41,18 +41,17 @@
         android:id="@+id/food2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
         android:layout_alignTop="@+id/food1"
-        android:layout_marginStart="124dp"
+
+        android:layout_toStartOf="@+id/textView4"
         fab:srcCompat="@android:drawable/gallery_thumb" />
 
     <ImageView
         android:id="@+id/food3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
         android:layout_alignTop="@+id/food1"
-        android:layout_marginEnd="116dp"
+        android:layout_toEndOf="@+id/textView4"
         fab:srcCompat="@android:drawable/gallery_thumb" />
 
     <ImageView
@@ -109,9 +108,8 @@
         android:id="@+id/textView5"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="277dp"
+
+        android:layout_centerInParent="true"
         android:text="Not Food" />
 
     <com.github.clans.fab.FloatingActionMenu
