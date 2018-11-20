@@ -45,7 +45,7 @@ public class CameraActivity extends AppCompatActivity {
 
     String url = "http://18.191.74.137";
     String mCurrentPhotoPath = "";
-    static JSONObject jsonObjectResult;
+    static String response = "";
     static final int REQUEST_TAKE_PHOTO = 1;
 
     @Override
@@ -69,7 +69,7 @@ public class CameraActivity extends AppCompatActivity {
             public void onClick(View view) {
                 String url_input = "/input";
                 if (!mCurrentPhotoPath.equals("")) {
-                    jsonObjectResult = postFile(url + url_input, mCurrentPhotoPath);
+                    response = postFile(url + url_input, mCurrentPhotoPath);
                     changeToResultActivity(view);
                 }
             }
@@ -186,34 +186,30 @@ public class CameraActivity extends AppCompatActivity {
        }
    }
 
-    public JSONObject postFile(String url, String filePath) {
+    public String postFile(String url, String filePath) {
         String result = "";
         HttpClient httpClient = new DefaultHttpClient();
         HttpPost httpPost = new HttpPost(url);
         File file = new File(filePath);
         MultipartEntity mpEntity = new MultipartEntity();
         ContentBody cbFile = new FileBody(file, "image/jpeg");
-        JSONObject responseObject = null;
         try {
             mpEntity.addPart("file", cbFile);
             httpPost.setEntity(mpEntity);
             HttpResponse response = httpClient.execute(httpPost);
             HttpEntity resEntity = response.getEntity();
             result = resEntity.toString();
-            responseObject = new JSONObject(result);
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         } catch (ClientProtocolException e) {
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
-        } catch (JSONException e) {
-            e.printStackTrace();
         }
-        return responseObject;
+        return result;
     }
 
-    public static JSONObject getJsonObjectResult() {
-        return jsonObjectResult;
+    public static String getResponse() {
+        return response;
     }
 }
