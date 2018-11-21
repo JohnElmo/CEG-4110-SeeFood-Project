@@ -9,10 +9,12 @@
 
     <TextView
         android:id="@+id/textView_home"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:text="Home"
+        android:layout_width="322dp"
+        android:layout_height="169dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignStart="@+id/imageView7"
+        android:layout_marginBottom="139dp"
+        android:text=""
         android:textSize="24sp" />
 
     <ImageButton
@@ -23,15 +25,6 @@
         android:layout_centerHorizontal="true"
         fab:srcCompat="@drawable/ic_photo_camera_black_24dp" />
 
-    <ImageButton
-        android:id="@+id/ImageSelect"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginBottom="54dp"
-        android:layout_marginStart="29dp"
-        fab:srcCompat="@drawable/ic_image_black_24dp" />
 
     <ImageButton
         android:id="@+id/BrowseSubmissions"
@@ -40,7 +33,19 @@
         android:layout_alignBottom="@+id/CameraSelect"
         android:layout_alignParentEnd="true"
         android:layout_marginEnd="30dp"
-        fab:srcCompat="@drawable/ic_open_in_browser_black_24dp" />
+        fab:srcCompat="@drawable/ic_open_in_browser_black_24dp"/>
+
+
+    <ImageButton
+        android:id="@+id/ImageSelect"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="54dp"
+        android:layout_marginStart="29dp"
+
+        fab:srcCompat="@drawable/ic_image_black_24dp"/>
 
     <ImageButton
         android:id="@+id/HelpIcon"
@@ -51,5 +56,39 @@
         android:layout_marginEnd="8dp"
         android:layout_marginTop="12dp"
         fab:srcCompat="@drawable/help_icon" />
+
+    <ImageView
+        android:id="@+id/imageView7"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_below="@+id/HelpIcon"
+        fab:srcCompat="@drawable/cooking_robot_home" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="92dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="27dp"
+        android:layout_marginStart="14dp"
+        android:text="Select Image" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignEnd="@+id/HelpIcon"
+        android:layout_alignTop="@+id/textView"
+        android:text="        Past Submissions"/>
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/textView"
+        android:layout_centerHorizontal="true"
+        android:text="Camera" />
 
 </RelativeLayout>
