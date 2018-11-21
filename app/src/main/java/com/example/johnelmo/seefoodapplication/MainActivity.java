@@ -6,8 +6,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ImageButton;
 
-
-
 public class MainActivity extends AppCompatActivity {
 
     ImageButton selectImage, selectCamera, selectBrowse ,selectHelp;
@@ -42,10 +40,10 @@ public class MainActivity extends AppCompatActivity {
                 changeToBrowseSubmissionsActivity(view);
             }
         });
+
         selectHelp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 changeToHelp(view);
             }
 
@@ -71,6 +69,5 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(this, Help.class);
         startActivity(intent);
     }
-
 
 }

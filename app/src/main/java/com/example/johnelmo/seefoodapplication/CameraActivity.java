@@ -1,11 +1,11 @@
 package com.example.johnelmo.seefoodapplication;
 
-
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.media.ThumbnailUtils;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.v4.content.FileProvider;
@@ -24,15 +24,12 @@ import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.mime.MultipartEntity;
-import org.apache.http.entity.mime.content.ContentBody;
 import org.apache.http.entity.mime.content.FileBody;
 import org.apache.http.impl.client.DefaultHttpClient;
-import org.json.JSONException;
-import org.json.JSONObject;
+import org.apache.http.util.EntityUtils;
 
 import java.io.File;
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -42,10 +39,10 @@ public class CameraActivity extends AppCompatActivity {
     Button capture, submit;
     ImageView mImageView;
     ImageButton selectHelp;
-
-    String url = "http://18.191.74.137";
+    static final String HOME_URL = "http://18.191.74.137";
+    static final String FILE_UPLOAD_URL = "http://18.191.74.137/input";
     String mCurrentPhotoPath = "";
-    static String response = "";
+
     static final int REQUEST_TAKE_PHOTO = 1;
 
     @Override
@@ -67,9 +64,9 @@ public class CameraActivity extends AppCompatActivity {
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String url_input = "/input";
                 if (!mCurrentPhotoPath.equals("")) {
-                    response = postFile(url + url_input, mCurrentPhotoPath);
+                    UploadFileToServer uploadFileToServer = new UploadFileToServer();
+                    uploadFileToServer.execute();
                     changeToResultActivity(view);
                 }
             }
@@ -186,30 +183,54 @@ public class CameraActivity extends AppCompatActivity {
        }
    }
 
-    public String postFile(String url, String filePath) {
-        String result = "";
-        HttpClient httpClient = new DefaultHttpClient();
-        HttpPost httpPost = new HttpPost(url);
-        File file = new File(filePath);
-        MultipartEntity mpEntity = new MultipartEntity();
-        ContentBody cbFile = new FileBody(file, "image/jpeg");
-        try {
-            mpEntity.addPart("file", cbFile);
-            httpPost.setEntity(mpEntity);
-            HttpResponse response = httpClient.execute(httpPost);
-            HttpEntity resEntity = response.getEntity();
-            result = resEntity.toString();
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-        } catch (ClientProtocolException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return result;
-    }
+    private class UploadFileToServer extends AsyncTask<Void, Void, String> {
 
-    public static String getResponse() {
-        return response;
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+        }
+
+        @Override
+        protected String doInBackground(Void... params) {
+            String responseString = "";
+            HttpClient httpclient = new DefaultHttpClient();
+            HttpPost httppost = new HttpPost(FILE_UPLOAD_URL);
+            try {
+                MultipartEntity entity = new MultipartEntity();
+                File file = new File(mCurrentPhotoPath);
+                entity.addPart("pic", new FileBody(file));
+                httppost.setEntity(entity);
+
+                // Making server call
+                HttpResponse response = httpclient.execute(httppost);
+                HttpEntity r_entity = response.getEntity();
+
+                int statusCode = response.getStatusLine().getStatusCode();
+                if (statusCode == 200) {
+                    // Server response
+                    responseString = EntityUtils.toString(r_entity);
+                } else {
+                    responseString = "Error occurred! Http Status Code: "
+                            + statusCode + " -> " + response.getStatusLine().getReasonPhrase();
+                }
+
+            } catch (ClientProtocolException e) {
+                responseString = e.toString();
+            } catch (IOException e) {
+                responseString = e.toString();
+            }
+
+            return responseString;
+        }
+
+        @Override
+        protected void onPostExecute(String result) {
+            super.onPostExecute(result);
+            if (result != null) {
+                ResultActivity.resultTextView.setText("Response" + result);
+            } else {
+                ResultActivity.resultTextView.setText("Response was null");
+            }
+        }
     }
 }
