@@ -17,6 +17,7 @@ public class BrowseSubmissionsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_browse_submissions);
+        getSupportActionBar().hide();
         selectHomeFab = (FloatingActionButton) findViewById(R.id.fab_Browse_HomeSelect);
         selectImageFab = (FloatingActionButton) findViewById(R.id.fab_Browse_ImageSelect);
         selectCameraFab = (FloatingActionButton) findViewById(R.id.fab_Browse_CameraSelect);

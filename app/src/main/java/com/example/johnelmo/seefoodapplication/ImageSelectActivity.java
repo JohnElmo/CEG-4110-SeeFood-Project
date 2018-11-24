@@ -29,7 +29,7 @@ public class ImageSelectActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_image_select);
-
+        getSupportActionBar().hide();
         selectHomeFab = (FloatingActionButton) findViewById(R.id.fab_Image_HomeSelect);
         selectCameraFab = (FloatingActionButton) findViewById(R.id.fab_Image_CameraSelect);
         selectBrowseFab = (FloatingActionButton) findViewById(R.id.fab_Image_BrowseSubmissions);

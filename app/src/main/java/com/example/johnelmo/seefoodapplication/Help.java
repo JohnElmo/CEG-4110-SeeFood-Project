@@ -16,7 +16,7 @@ public class Help extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.help);
-
+        getSupportActionBar().hide();
         selectImageFab = (FloatingActionButton) findViewById(R.id.fab_ImageSelect);
         selectCameraFab = (FloatingActionButton) findViewById(R.id.fab_CameraSelect);
         selectBrowseFab = (FloatingActionButton) findViewById(R.id.fab_BrowseSubmissions);

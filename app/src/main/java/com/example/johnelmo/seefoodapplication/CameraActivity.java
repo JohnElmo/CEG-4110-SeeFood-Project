@@ -49,7 +49,7 @@ public class CameraActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_camera);
-
+        getSupportActionBar().hide();
         mImageView = findViewById(R.id.imageView);
 
         capture = findViewById(R.id.captureButton);

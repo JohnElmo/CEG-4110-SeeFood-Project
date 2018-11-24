@@ -5,7 +5,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".CameraActivity">
+    tools:context=".CameraActivity"
+    android:background="@drawable/kitchen">
 
 
 
@@ -16,18 +17,18 @@
         android:layout_height="wrap_content"
         android:layout_alignBottom="@+id/HelpIcon"
         android:layout_centerHorizontal="true"
-        android:text="Take Picture" />
+        android:text="Take Picture"
+        />
 
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="300dp"
         android:layout_height="300dp"
+        android:layout_alignParentEnd="true"
         android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="95dp"
-        android:background = "#37AEE4"
-
-        />
+        android:layout_marginEnd="35dp"
+        android:layout_marginTop="137dp"
+        android:visibility="invisible" />
 
     <ImageButton
         android:id="@+id/HelpIcon"
