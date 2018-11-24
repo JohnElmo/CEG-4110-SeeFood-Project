@@ -58,6 +58,7 @@ public class CameraActivity extends AppCompatActivity {
             public void onClick(View view) {
                 dispatchTakePictureIntent();
                 mImageView.setVisibility(View.VISIBLE);
+
             }
 
         });

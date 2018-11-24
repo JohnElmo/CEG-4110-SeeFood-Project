@@ -8,17 +8,23 @@
     tools:context=".ImageSelectActivity"
     android:background="@drawable/kitchen">
 
+
+    <ImageView
+        android:id="@+id/imageView5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"
+        fab:srcCompat="@drawable/cooking_robot_just_pan" />
+
     <ImageView
         android:id="@+id/GalleryPreview"
-        android:layout_width="300dp"
-        android:layout_height="300dp"
+        android:layout_width="146dp"
+        android:layout_height="145dp"
         android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="115dp"
+        android:layout_alignParentEnd="true"
+        android:layout_marginBottom="242dp"
         android:visibility="invisible" />
-
-
-
     <TextView
         android:id="@+id/textView_image_select"
         android:layout_width="wrap_content"
@@ -43,21 +49,21 @@
         android:id="@+id/Gallerybtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="98dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="220dp"
+        android:layout_toEndOf="@+id/textView_image_select"
         android:text="Browse gallery"></Button>
 
 
-
     <Button
-        android:id="@+id/SubmitBtn"
+        android:id="@+id/submitButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="37dp"
-        android:text="Submit" />
+        android:layout_marginBottom="24dp"
+        android:background="@drawable/submit" />
+
     <com.github.clans.fab.FloatingActionMenu
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
