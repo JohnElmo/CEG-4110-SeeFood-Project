@@ -9,25 +9,31 @@
     android:background="@drawable/kitchen">
 
 
-
-
     <Button
         android:id="@+id/captureButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/HelpIcon"
-        android:layout_centerHorizontal="true"
-        android:text="Take Picture"
-        />
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginEnd="108dp"
+        android:layout_marginTop="176dp"
+        android:text="Take Picture" />
+
+    <ImageView
+        android:id="@+id/imageView5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"
+        fab:srcCompat="@drawable/cooking_robot_just_pan" />
 
     <ImageView
         android:id="@+id/imageView"
-        android:layout_width="300dp"
-        android:layout_height="300dp"
+        android:layout_width="177dp"
+        android:layout_height="173dp"
+        android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginEnd="35dp"
-        android:layout_marginTop="137dp"
+        android:layout_marginBottom="220dp"
         android:visibility="invisible" />
 
     <ImageButton

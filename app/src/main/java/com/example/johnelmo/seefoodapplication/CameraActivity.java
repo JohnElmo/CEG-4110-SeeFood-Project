@@ -57,7 +57,9 @@ public class CameraActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 dispatchTakePictureIntent();
+                mImageView.setVisibility(View.VISIBLE);
             }
+
         });
 
         submit = findViewById(R.id.submitButton);
@@ -151,6 +153,7 @@ public class CameraActivity extends AppCompatActivity {
                 galleryAddPic();
             }
         }
+
     }
 
     private File createImageFile() throws IOException {
