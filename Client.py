@@ -24,7 +24,7 @@ def home():
 def input():
     if request.method == 'POST':
         file = request.files['pic']
-		file_path_name = '/var/www/FlaskApps/Seefood/images/' + str(file.filename)
+		file_path_name = '/var/www/FlaskApps/SeefoodApp/images/' + str(file.filename)
         file.save(file_path_name)
         os.chmod(file_path_name, 0777)
     # Work in RGBA space (A=alpha) since png's come in as RGBA, jpeg come in as RGB
@@ -34,6 +34,6 @@ def input():
         img_tensor = [np.asarray(image, dtype=np.float32)]
     # Run the image in the model.
         scores = sess.run(class_scores, {x_input: img_tensor, keep_prob: 1.})
-		
+	return scores	
 	  else:
         return "Not POST method"
