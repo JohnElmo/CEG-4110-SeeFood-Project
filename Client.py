@@ -8,7 +8,6 @@ app = Flask(__name__)
 
 ###### Initialization code - we only need to run this once and keep in memory.
 sess = tf.Session()
-sess = tf.Session()
 saver = tf.train.import_meta_graph('/var/www/FlaskApps/SeefoodApp/saved_model/model_epoch5.ckpt.meta')
 saver.restore(sess, tf.train.latest_checkpoint('/var/www/FlaskApps/SeefoodApp/saved_model/'))
 graph = tf.get_default_graph()
