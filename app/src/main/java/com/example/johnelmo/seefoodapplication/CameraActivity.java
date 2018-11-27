@@ -36,9 +36,9 @@ import java.util.Date;
 public class CameraActivity extends AppCompatActivity {
 
     FloatingActionButton selectHomeFab, selectImageFab, selectBrowseFab;
-    Button capture, submit;
+    Button capture, submit, selectHelp;
     ImageView mImageView;
-    ImageButton selectHelp;
+
     static final String HOME_URL = "http://18.191.74.137";
     static final String FILE_UPLOAD_URL = "http://18.191.74.137/input";
     String mCurrentPhotoPath = "";
@@ -78,7 +78,7 @@ public class CameraActivity extends AppCompatActivity {
         selectHomeFab = (FloatingActionButton) findViewById(R.id.fab_Camera_HomeSelect);
         selectImageFab = (FloatingActionButton) findViewById(R.id.fab_Camera_ImageSelect);
         selectBrowseFab = (FloatingActionButton) findViewById(R.id.fab_Camera_BrowseSubmissions);
-        selectHelp = (ImageButton) findViewById(R.id.HelpIcon);
+        selectHelp = (Button) findViewById(R.id.HelpIcon);
 
         selectHomeFab.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageButton;
 
 import com.github.clans.fab.FloatingActionButton;
@@ -11,7 +12,7 @@ import com.github.clans.fab.FloatingActionButton;
 public class BrowseSubmissionsActivity extends AppCompatActivity {
 
     FloatingActionButton selectHomeFab, selectImageFab, selectCameraFab;
-    ImageButton selectHelp;
+    Button selectHelp;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,7 +22,7 @@ public class BrowseSubmissionsActivity extends AppCompatActivity {
         selectHomeFab = (FloatingActionButton) findViewById(R.id.fab_Browse_HomeSelect);
         selectImageFab = (FloatingActionButton) findViewById(R.id.fab_Browse_ImageSelect);
         selectCameraFab = (FloatingActionButton) findViewById(R.id.fab_Browse_CameraSelect);
-        selectHelp = (ImageButton) findViewById(R.id.HelpIcon);
+        selectHelp = (Button) findViewById(R.id.HelpIcon);
 
         selectHomeFab.setOnClickListener(new View.OnClickListener() {
             @Override
