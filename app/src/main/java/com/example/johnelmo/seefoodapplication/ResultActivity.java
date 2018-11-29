@@ -12,7 +12,7 @@ import com.github.clans.fab.FloatingActionButton;
 public class ResultActivity extends AppCompatActivity {
     FloatingActionButton selectHomeFab, selectImageFab, selectCameraFab,selectBrowseFab;
     Button selectHelp;
-    static TextView viewResult;
+    TextView viewResult;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -91,7 +91,7 @@ public class ResultActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public static void displayScore() {
+    public void displayScore() {
         viewResult.setText(CameraActivity.getScore1() + ", " + CameraActivity.getScore2());
     }
 }

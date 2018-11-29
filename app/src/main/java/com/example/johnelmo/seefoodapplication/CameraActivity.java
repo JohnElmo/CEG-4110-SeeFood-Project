@@ -181,9 +181,9 @@ public class CameraActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
        if (requestCode == REQUEST_TAKE_PHOTO && resultCode == RESULT_OK) {
            int thumbSize = 64;
-           Bitmap thumbBitmap= ThumbnailUtils.extractThumbnail(BitmapFactory.decodeFile(mCurrentPhotoPath),
-                   thumbSize, thumbSize);
-           mImageView.setImageBitmap(thumbBitmap);
+           //Bitmap thumbBitmap= ThumbnailUtils.extractThumbnail(BitmapFactory.decodeFile(mCurrentPhotoPath),
+            //       thumbSize, thumbSize);
+           //mImageView.setImageBitmap(thumbBitmap);
        }
    }
 
