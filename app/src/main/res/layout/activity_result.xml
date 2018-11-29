@@ -30,11 +30,12 @@
         android:id="@+id/resultTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"
-        android:layout_marginBottom="210dp"
+        android:layout_alignParentBottom="true"
         android:layout_marginEnd="55dp"
-        android:text="TextView" />
+        android:layout_marginBottom="210dp"
+        android:text="TextView"
+        android:textColor="@android:color/white" />
 
     <com.github.clans.fab.FloatingActionMenu
         android:layout_width="wrap_content"
@@ -72,7 +73,7 @@
         fab:menu_showShadow="true">
 
         <com.github.clans.fab.FloatingActionButton
-            android:id="@+id/fab_Image_HomeSelect"
+            android:id="@+id/fab_Result_HomeSelect"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_above = "@id/GalleryPreview"
@@ -81,7 +82,15 @@
             fab:fab_size="mini" />
 
         <com.github.clans.fab.FloatingActionButton
-            android:id="@+id/fab_Image_CameraSelect"
+            android:id="@+id/fab_Result_ImageSelect"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_image_black_24dp"
+            fab:fab_label="Select Image"
+            fab:fab_size="mini"/>
+
+        <com.github.clans.fab.FloatingActionButton
+            android:id="@+id/fab_Result_CameraSelect"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_above = "@id/GalleryPreview"
@@ -90,21 +99,13 @@
             fab:fab_size="mini" />
 
         <com.github.clans.fab.FloatingActionButton
-            android:id="@+id/fab_Image_BrowseSubmissions"
+            android:id="@+id/fab_Result_BrowseSubmissions"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_above = "@id/GalleryPreview"
             android:src="@drawable/ic_open_in_browser_black_24dp"
             fab:fab_label="Browse Submissions"
             fab:fab_size="mini" />
-        <com.github.clans.fab.FloatingActionButton
-            android:id="@+id/fab_Camera_ImageSelect"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_image_black_24dp"
-            fab:fab_label="Select Image"
-            fab:fab_size="mini"/>
-
 
     </com.github.clans.fab.FloatingActionMenu>
 

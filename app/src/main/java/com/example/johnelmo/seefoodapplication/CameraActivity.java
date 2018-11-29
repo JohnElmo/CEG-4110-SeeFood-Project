@@ -13,8 +13,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.github.clans.fab.FloatingActionButton;
 
@@ -38,12 +38,13 @@ public class CameraActivity extends AppCompatActivity {
     FloatingActionButton selectHomeFab, selectImageFab, selectBrowseFab;
     Button capture, submit, selectHelp;
     ImageView mImageView;
+    TextView submitResponse;
 
     static final String HOME_URL = "http://18.191.74.137";
     static final String FILE_UPLOAD_URL = "http://18.191.74.137/input";
     String mCurrentPhotoPath = "";
-
     static final int REQUEST_TAKE_PHOTO = 1;
+    static float score1, score2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,6 +52,7 @@ public class CameraActivity extends AppCompatActivity {
         setContentView(R.layout.activity_camera);
         getSupportActionBar().hide();
         mImageView = findViewById(R.id.imageView);
+        submitResponse = findViewById(R.id.submitResponse);
 
         capture = findViewById(R.id.captureButton);
         capture.setOnClickListener(new View.OnClickListener() {
@@ -58,7 +60,6 @@ public class CameraActivity extends AppCompatActivity {
             public void onClick(View view) {
                 dispatchTakePictureIntent();
                 mImageView.setVisibility(View.VISIBLE);
-
             }
 
         });
@@ -70,7 +71,6 @@ public class CameraActivity extends AppCompatActivity {
                 if (!mCurrentPhotoPath.equals("")) {
                     UploadFileToServer uploadFileToServer = new UploadFileToServer();
                     uploadFileToServer.execute();
-                    changeToResultActivity(view);
                 }
             }
         });
@@ -125,7 +125,7 @@ public class CameraActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public void changeToResultActivity(View view) {
+    public void changeToResultActivity() {
         Intent intent = new Intent(this, ResultActivity.class);
         startActivity(intent);
     }
@@ -192,6 +192,7 @@ public class CameraActivity extends AppCompatActivity {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
+            submitResponse.setText("Submit in progress...");
         }
 
         @Override
@@ -230,11 +231,26 @@ public class CameraActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(String result) {
             super.onPostExecute(result);
-            if (result != null) {
-                ResultActivity.resultTextView.setText("Response" + result);
+            // if result returned is correct then it will be in the form: "float1, float2"
+            if (result.matches("[-+]?[0-9]*\\.?[0-9]+[,][ ][-+]?[0-9]*\\.?[0-9]+")) {
+                String arr[] = result.split(", ", 2);
+                score1 = Float.valueOf(arr[0]);
+                score2 = Float.valueOf(arr[1]);
+                changeToResultActivity();
+            // if result returned is not null, then print out the error message
+            } else if (result != null) {
+                submitResponse.setText(result);
             } else {
-                ResultActivity.resultTextView.setText("Response was null");
+                submitResponse.setText("Result Error: null");
             }
         }
+    }
+
+    public static float getScore1() {
+        return score1;
+    }
+
+    public static float getScore2() {
+        return score2;
     }
 }
