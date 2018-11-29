@@ -34,6 +34,6 @@ def input():
         img_tensor = [np.asarray(image, dtype=np.float32)]
     # Run the image in the model.
         scores = sess.run(class_scores, {x_input: img_tensor, keep_prob: 1.})
-	return scores.__repr__()	
+	return str(scores.item(0)) + ", " + str(scores.item(1))	
 	  else:
         return "Not POST method"
