@@ -44,7 +44,6 @@ public class ImageSelectActivity extends AppCompatActivity {
     static final String HOME_URL = "http://18.191.74.137";
     static final String FILE_UPLOAD_URL = "http://18.191.74.137/input";
     String mCurrentPhotoPath = "";
-    static float score1, score2;
 
     // Storage Permissions
     private static final int REQUEST_EXTERNAL_STORAGE = 1;
@@ -151,11 +150,6 @@ public class ImageSelectActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public void changeToResultActivity() {
-        Intent intent = new Intent(this, ResultActivity.class);
-        startActivity(intent);
-    }
-
     public void changeToHelp(View view) {
         Intent intent = new Intent(this, Help.class);
         startActivity(intent);
@@ -208,9 +202,9 @@ public class ImageSelectActivity extends AppCompatActivity {
             // if result returned is correct then it will be in the form: "float1, float2"
             if (result.matches("[-+]?[0-9]*\\.?[0-9]+[,][ ][-+]?[0-9]*\\.?[0-9]+")) {
                 String arr[] = result.split(", ", 2);
-                score1 = Float.valueOf(arr[0]);
-                score2 = Float.valueOf(arr[1]);
-                changeToResultActivity();
+                float score1 = Float.valueOf(arr[0]);
+                float score2 = Float.valueOf(arr[1]);
+                submitResponse.setText(score1 + ", " + score2);
                 // if result returned is not null, then print out the error message
             } else if (result != null) {
                 submitResponse.setText(result);
@@ -218,14 +212,6 @@ public class ImageSelectActivity extends AppCompatActivity {
                 submitResponse.setText("Result Error: null");
             }
         }
-    }
-
-    public static float getScore1() {
-        return score1;
-    }
-
-    public static float getScore2() {
-        return score2;
     }
 
     /**
