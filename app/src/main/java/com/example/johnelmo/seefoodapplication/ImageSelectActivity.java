@@ -1,6 +1,11 @@
 package com.example.johnelmo.seefoodapplication;
 
+import android.Manifest;
+import android.app.Activity;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.os.AsyncTask;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -10,25 +15,56 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.provider.MediaStore;
 import android.view.View.OnClickListener;
+import android.widget.TextView;
 
 
 import com.github.clans.fab.FloatingActionButton;
 
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
+import org.apache.http.client.ClientProtocolException;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.mime.MultipartEntity;
+import org.apache.http.entity.mime.content.FileBody;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.util.EntityUtils;
+
+import java.io.File;
+import java.io.IOException;
+
 public class ImageSelectActivity extends AppCompatActivity {
 
     FloatingActionButton selectHomeFab, selectCameraFab, selectBrowseFab;
-    Button selectHelp;
+    Button selectHelp, browseGallery, submitImage;
+    ImageView img;
+    TextView submitResponse;
 
-    private static final int SELECT_PICTURE = 1;
+    static final int SELECT_PICTURE = 1;
+    static final String HOME_URL = "http://18.191.74.137";
+    static final String FILE_UPLOAD_URL = "http://18.191.74.137/input";
+    String mCurrentPhotoPath = "";
+    static float score1, score2;
 
-    private String selectedImagePath;
-    private ImageView img;
+    // Storage Permissions
+    private static final int REQUEST_EXTERNAL_STORAGE = 1;
+    private static String[] PERMISSIONS_STORAGE = {Manifest.permission.READ_EXTERNAL_STORAGE,
+            Manifest.permission.WRITE_EXTERNAL_STORAGE
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_image_select);
         getSupportActionBar().hide();
+
+        verifyStoragePermissions(this);
+
+        img = (ImageView)findViewById(R.id.GalleryPreview);
+        browseGallery = (Button) findViewById(R.id.Gallerybtn);
+        submitResponse = (TextView) findViewById(R.id.selected_image_submitResponse);
+        submitImage = (Button) findViewById(R.id.submitButton);
+
         selectHomeFab = (FloatingActionButton) findViewById(R.id.fab_Image_HomeSelect);
         selectCameraFab = (FloatingActionButton) findViewById(R.id.fab_Image_CameraSelect);
         selectBrowseFab = (FloatingActionButton) findViewById(R.id.fab_Image_BrowseSubmissions);
@@ -54,35 +90,39 @@ public class ImageSelectActivity extends AppCompatActivity {
                 changeToBrowseSubmissionsActivity(view);
             }
         });
+
         selectHelp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 changeToHelp(view);
             }
-
         });
 
-        img = (ImageView)findViewById(R.id.GalleryPreview);
+        browseGallery.setOnClickListener(new OnClickListener() {
+            public void onClick(View view) {
+                Intent intent = new Intent();
+                intent.setType("image/*");
+                intent.setAction(Intent.ACTION_GET_CONTENT);
+                startActivityForResult(Intent.createChooser(intent, "Select Picture"), SELECT_PICTURE);
+            }
+        });
 
-        ((Button) findViewById(R.id.Gallerybtn))
-                .setOnClickListener(new OnClickListener() {
-                    public void onClick(View arg0) {
-                        Intent intent = new Intent();
-                        intent.setType("image/*");
-                        intent.setAction(Intent.ACTION_GET_CONTENT);
-                        startActivityForResult(Intent.createChooser(intent,"Select Picture"), SELECT_PICTURE);
-                    }
-                });
-
-
+        submitImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (!mCurrentPhotoPath.equals("")) {
+                    UploadFileToServer uploadFileToServer = new UploadFileToServer();
+                    uploadFileToServer.execute();
+                }
+            }
+        });
     }
+
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (resultCode == RESULT_OK) {
             if (requestCode == SELECT_PICTURE) {
                 Uri selectedImageUri = data.getData();
-                selectedImagePath = getPath(selectedImageUri);
-                System.out.println("Image Path : " + selectedImagePath);
+                mCurrentPhotoPath = getPath(selectedImageUri);
                 img.setImageURI(selectedImageUri);
             }
         }
@@ -95,6 +135,7 @@ public class ImageSelectActivity extends AppCompatActivity {
         cursor.moveToFirst();
         return cursor.getString(column_index);
     }
+
     public void changeToMainActivity(View view) {
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
@@ -109,9 +150,98 @@ public class ImageSelectActivity extends AppCompatActivity {
         Intent intent = new Intent(this, BrowseSubmissionsActivity.class);
         startActivity(intent);
     }
+
+    public void changeToResultActivity() {
+        Intent intent = new Intent(this, ResultActivity.class);
+        startActivity(intent);
+    }
+
     public void changeToHelp(View view) {
         Intent intent = new Intent(this, Help.class);
         startActivity(intent);
     }
 
+    private class UploadFileToServer extends AsyncTask<Void, Void, String> {
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            submitResponse.setText("Submit in progress...");
+        }
+
+        @Override
+        protected String doInBackground(Void... params) {
+            String responseString = "";
+            HttpClient httpclient = new DefaultHttpClient();
+            HttpPost httppost = new HttpPost(FILE_UPLOAD_URL);
+            try {
+                MultipartEntity entity = new MultipartEntity();
+                File file = new File(mCurrentPhotoPath);
+                entity.addPart("pic", new FileBody(file));
+                httppost.setEntity(entity);
+
+                // Making server call
+                HttpResponse response = httpclient.execute(httppost);
+                HttpEntity r_entity = response.getEntity();
+
+                int statusCode = response.getStatusLine().getStatusCode();
+                if (statusCode == 200) {
+                    // Server response
+                    responseString = EntityUtils.toString(r_entity);
+                } else {
+                    responseString = "Error occurred! Http Status Code: "
+                            + statusCode + " -> " + response.getStatusLine().getReasonPhrase();
+                }
+
+            } catch (ClientProtocolException e) {
+                responseString = e.toString();
+            } catch (IOException e) {
+                responseString = e.toString();
+            }
+
+            return responseString;
+        }
+
+        @Override
+        protected void onPostExecute(String result) {
+            super.onPostExecute(result);
+            // if result returned is correct then it will be in the form: "float1, float2"
+            if (result.matches("[-+]?[0-9]*\\.?[0-9]+[,][ ][-+]?[0-9]*\\.?[0-9]+")) {
+                String arr[] = result.split(", ", 2);
+                score1 = Float.valueOf(arr[0]);
+                score2 = Float.valueOf(arr[1]);
+                changeToResultActivity();
+                // if result returned is not null, then print out the error message
+            } else if (result != null) {
+                submitResponse.setText(result);
+            } else {
+                submitResponse.setText("Result Error: null");
+            }
+        }
+    }
+
+    public static float getScore1() {
+        return score1;
+    }
+
+    public static float getScore2() {
+        return score2;
+    }
+
+    /**
+     * Checks if the app has permission to write to device storage
+     *
+     * If the app does not has permission then the user will be prompted to grant permissions
+     *
+     * @param activity
+     */
+    public static void verifyStoragePermissions(Activity activity) {
+        // Check if we have write permission
+        int permission = ActivityCompat.checkSelfPermission(activity, Manifest.permission.WRITE_EXTERNAL_STORAGE);
+
+        if (permission != PackageManager.PERMISSION_GRANTED) {
+            // We don't have permission so prompt the user
+            ActivityCompat.requestPermissions(activity, PERMISSIONS_STORAGE, REQUEST_EXTERNAL_STORAGE);
+        }
+    }
 }

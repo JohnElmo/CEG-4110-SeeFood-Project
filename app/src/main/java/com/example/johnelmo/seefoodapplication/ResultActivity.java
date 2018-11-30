@@ -92,6 +92,7 @@ public class ResultActivity extends AppCompatActivity {
     }
 
     public void displayScore() {
-        viewResult.setText(CameraActivity.getScore1() + ", " + CameraActivity.getScore2());
+        //viewResult.setText(CameraActivity.getScore1() + ", " + CameraActivity.getScore2());
+        viewResult.setText(ImageSelectActivity.getScore1() + ", " + ImageSelectActivity.getScore2());
     }
 }

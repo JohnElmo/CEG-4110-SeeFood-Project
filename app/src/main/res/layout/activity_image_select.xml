@@ -23,8 +23,8 @@
         android:layout_height="145dp"
         android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"
-        android:layout_marginBottom="242dp"
-        android:visibility="invisible" />
+        android:layout_marginBottom="242dp" />
+
     <TextView
         android:id="@+id/textView_image_select"
         android:layout_width="wrap_content"
@@ -127,5 +127,14 @@
             fab:fab_size="mini" />
 
     </com.github.clans.fab.FloatingActionMenu>
+
+    <TextView
+        android:id="@+id/selected_image_submitResponse"
+        android:layout_width="310dp"
+        android:layout_height="162dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="112dp" />
 
 </RelativeLayout>
