@@ -33,6 +33,8 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import static java.lang.Math.abs;
+
 public class CameraActivity extends AppCompatActivity {
 
     FloatingActionButton selectHomeFab, selectImageFab, selectBrowseFab;
@@ -230,7 +232,14 @@ public class CameraActivity extends AppCompatActivity {
                 String arr[] = result.split(", ", 2);
                 float score1 = Float.valueOf(arr[0]);
                 float score2 = Float.valueOf(arr[1]);
-                submitResponse.setText(score1 + ", " + score2);
+                String classType;
+                if (score1 > score2) {
+                    classType = "Food";
+                } else {
+                    classType = "No Food";
+                }
+                int confidence = (int) (abs(score1 - score2) / 4.0 * 100.0);
+                submitResponse.setText("I am " + confidence + "% confident that I see " + classType);
             // if result returned is not null, then print out the error message
             } else if (result != null) {
                 submitResponse.setText(result);
