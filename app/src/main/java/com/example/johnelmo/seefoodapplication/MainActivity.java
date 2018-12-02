@@ -9,17 +9,16 @@ import android.widget.ImageButton;
 
 public class MainActivity extends AppCompatActivity {
 
-    ImageButton selectImage, selectCamera, selectBrowse;
-    Button selectHelp;
+    Button selectImage, selectCamera, selectBrowse,selectHelp;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        selectImage = (ImageButton) findViewById(R.id.ImageSelect);
-        selectCamera = (ImageButton) findViewById(R.id.CameraSelect);
-        selectBrowse = (ImageButton) findViewById(R.id.BrowseSubmissions);
+        selectImage = (Button) findViewById(R.id.ImageSelect);
+        selectCamera = (Button) findViewById(R.id.CameraSelect);
+        selectBrowse = (Button) findViewById(R.id.BrowseSubmissions);
         selectHelp = (Button) findViewById(R.id.HelpIcon);
 
         selectImage.setOnClickListener(new View.OnClickListener() {
