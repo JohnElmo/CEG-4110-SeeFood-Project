@@ -35,7 +35,7 @@ def input():
     # Run the image in the model.
         scores = sess.run(class_scores, {x_input: img_tensor, keep_prob: 1.})
 	if np.argmax(scores) == 1:
-            #add not_food to end of file name
+            #add notfood to end of file name
             os.rename(file_path_name, file_path_name + '_notfood')
         else:
             #add food to end of file name
