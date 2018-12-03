@@ -25,7 +25,8 @@
         android:layout_height="wrap_content"
         android:layout_alignBottom="@+id/imageView"
         android:layout_alignParentEnd="true"
-        android:layout_marginEnd="26dp"
+        android:layout_marginEnd="21dp"
+        android:layout_marginBottom="-53dp"
         android:text="Take Picture" />
 
 
