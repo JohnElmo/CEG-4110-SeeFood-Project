@@ -23,36 +23,31 @@
 
     <Button
         android:id="@+id/CameraSelect"
-        android:layout_width="350dp"
-        android:layout_height="114dp"
-        android:layout_alignStart="@+id/ImageSelect"
+        android:layout_width="320dp"
+        android:layout_height="106dp"
         android:layout_alignParentBottom="true"
-        android:layout_marginStart="1dp"
-        android:layout_marginBottom="214dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="216dp"
         android:background="@drawable/camera" />
 
 
     <Button
         android:id="@+id/BrowseSubmissions"
-        android:layout_width="350dp"
-        android:layout_height="114dp"
-
-        android:layout_alignStart="@+id/CameraSelect"
+        android:layout_width="320dp"
+        android:layout_height="106dp"
         android:layout_alignParentBottom="true"
-        android:layout_marginStart="-3dp"
-        android:layout_marginBottom="21dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="28dp"
         android:background="@drawable/past" />
 
 
     <Button
         android:id="@+id/ImageSelect"
-        android:layout_width="350dp"
-        android:layout_height="114dp"
-        android:layout_alignParentStart="true"
+        android:layout_width="320dp"
+        android:layout_height="106dp"
         android:layout_alignParentBottom="true"
-
-        android:layout_marginStart="14dp"
-        android:layout_marginBottom="116dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="120dp"
         android:background="@drawable/image" />
 
     <Button
