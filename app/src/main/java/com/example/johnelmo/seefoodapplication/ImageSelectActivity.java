@@ -38,7 +38,7 @@ public class ImageSelectActivity extends AppCompatActivity {
 
     FloatingActionButton selectHomeFab, selectCameraFab, selectBrowseFab;
     Button selectHelp, browseGallery, submitImage;
-    ImageView img;
+    ImageView img,robot;
     TextView submitResponse;
     RatingBar ratingBar;
 
@@ -61,11 +61,16 @@ public class ImageSelectActivity extends AppCompatActivity {
 
         verifyStoragePermissions(this);
 
+
         img = (ImageView)findViewById(R.id.GalleryPreview);
+        robot = (ImageView)findViewById(R.id.imageRobot);
         browseGallery = (Button) findViewById(R.id.Gallerybtn);
         submitResponse = (TextView) findViewById(R.id.selected_image_submitResponse);
         submitImage = (Button) findViewById(R.id.submitButton);
         ratingBar = findViewById(R.id.ratingBar);
+
+        browseGallery.setBackgroundResource(R.drawable.chicken_raw);
+        robot.setBackgroundResource(R.drawable.cooking_robot_just_pan);
 
         selectHomeFab = (FloatingActionButton) findViewById(R.id.fab_Image_HomeSelect);
         selectCameraFab = (FloatingActionButton) findViewById(R.id.fab_Image_CameraSelect);
@@ -218,16 +223,28 @@ public class ImageSelectActivity extends AppCompatActivity {
                 double rating;
                 if (confidence >= 3.0) { // greater than 3
                     rating = 6.0; // Certainly It Is Food
+                    browseGallery.setBackgroundResource(R.drawable.chicken);
+                    robot.setBackgroundResource(R.drawable.cooking_robot_food);
                 } else if (confidence >= 2.0) { // between 3 and 2
                     rating = 5.0; // Very Likely Food
+                    browseGallery.setBackgroundResource(R.drawable.chicken);
+                    robot.setBackgroundResource(R.drawable.cooking_robot_food);
                 } else if (confidence >= 0.5) { // between 2 and 0.5
                     rating = 4.0; // Likely Food
+                    browseGallery.setBackgroundResource(R.drawable.chicken);
+                    robot.setBackgroundResource(R.drawable.cooking_robot_food);
                 } else if (confidence >= -0.5) { // between 0.5 and -0.5
                     rating = 3.0; // Unlikely Food
+                    browseGallery.setBackgroundResource(R.drawable.burnt_chicken);
+                    robot.setBackgroundResource(R.drawable.cooking_robot_not_food);
                 } else if (confidence >= -2.0) { // between -0.5 and -2
                     rating = 2.0; // Very Unlikely Food
+                    browseGallery.setBackgroundResource(R.drawable.burnt_chicken);
+                    robot.setBackgroundResource(R.drawable.cooking_robot_not_food);
                 } else { // less than -2
                     rating = 1.0; // Definitely Not Food
+                    browseGallery.setBackgroundResource(R.drawable.burnt_chicken);
+                    robot.setBackgroundResource(R.drawable.cooking_robot_not_food);
                 }
                 submitResponse.setText("I see " + classType);
                 ratingBar.setRating((float) rating);

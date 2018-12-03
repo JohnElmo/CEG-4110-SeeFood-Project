@@ -10,7 +10,7 @@
 
 
     <ImageView
-        android:id="@+id/imageView5"
+        android:id="@+id/imageRobot"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
@@ -23,9 +23,10 @@
         android:id="@+id/GalleryPreview"
         android:layout_width="146dp"
         android:layout_height="145dp"
-        android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"
-        android:layout_marginBottom="242dp" />
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="6dp"
+        android:layout_marginBottom="177dp" />
 
     <Button
         android:id="@+id/HelpIcon"
@@ -39,13 +40,13 @@
 
     <Button
         android:id="@+id/Gallerybtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
+        android:layout_width="136dp"
+        android:layout_height="106dp"
+        android:layout_alignStart="@+id/GalleryPreview"
         android:layout_alignParentBottom="true"
-        android:layout_marginBottom="220dp"
-        android:text="Browse gallery"></Button>
-
+        android:layout_marginStart="16dp"
+        android:layout_marginBottom="166dp"
+        android:background="@drawable/chicken_raw" />
 
     <Button
         android:id="@+id/submitButton"
