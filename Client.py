@@ -43,3 +43,13 @@ def input():
         return str(scores.item(0)) + ", " + str(scores.item(1))	
     else:
         return "Not POST method"
+
+@app.route('/output', methods=['GET','POST'])
+def output():
+    if request.method == 'POST':
+        data = {}
+        data['images'] = []
+        for file in os.listdir('/var/www/FlaskApps/SeefoodApp/images/'):
+            data['images'].append(file)
+        with io.open('/var/www/FlaskApps/SeefoodApp/jsonFile', mode='w', encoding='utf-8') as jsonResult:
+            return json.dump(data, jsonResults)
