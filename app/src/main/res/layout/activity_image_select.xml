@@ -27,16 +27,6 @@
         android:layout_alignParentEnd="true"
         android:layout_marginBottom="242dp" />
 
-    <TextView
-        android:id="@+id/textView_image_select"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="20dp"
-        android:text="Select Image"
-        android:textSize="24sp" />
-
     <Button
         android:id="@+id/HelpIcon"
         android:layout_width="37dp"
@@ -51,9 +41,9 @@
         android:id="@+id/Gallerybtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="220dp"
-        android:layout_toEndOf="@+id/textView_image_select"
         android:text="Browse gallery"></Button>
 
 
@@ -139,5 +129,27 @@
         android:layout_alignParentTop="true"
         android:layout_marginStart="50dp"
         android:layout_marginTop="112dp" />
+
+    <RatingBar
+        android:id="@+id/ratingBar"
+        android:layout_width="wrap_content"
+        android:layout_height="45dp"
+        android:layout_above="@+id/selected_image_submitResponse"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="6dp"
+        android:layout_marginBottom="-112dp"
+        android:numStars="6"
+        android:stepSize="1" />
+
+    <ImageView
+        android:id="@+id/ratingExplanations"
+        android:layout_width="299dp"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/ratingBar"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="0dp"
+        android:layout_marginBottom="0dp"
+        fab:srcCompat="@drawable/rating_explanation" />
+
 
 </RelativeLayout>
