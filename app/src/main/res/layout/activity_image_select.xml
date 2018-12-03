@@ -15,18 +15,18 @@
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginStart="0dp"
-        android:layout_marginBottom="27dp"
-        fab:srcCompat="@drawable/cooking_robot_just_pan" />
+        android:layout_marginStart="4dp"
+        android:layout_marginBottom="83dp"
+        android:background="@drawable/cooking_robot_just_pan" />
 
     <ImageView
         android:id="@+id/GalleryPreview"
-        android:layout_width="146dp"
-        android:layout_height="145dp"
+        android:layout_width="131dp"
+        android:layout_height="130dp"
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginEnd="6dp"
-        android:layout_marginBottom="177dp" />
+        android:layout_marginEnd="23dp"
+        android:layout_marginBottom="366dp" />
 
     <Button
         android:id="@+id/HelpIcon"
@@ -42,11 +42,11 @@
         android:id="@+id/Gallerybtn"
         android:layout_width="136dp"
         android:layout_height="106dp"
-        android:layout_alignStart="@+id/GalleryPreview"
+        android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginStart="16dp"
-        android:layout_marginBottom="166dp"
-        android:background="@drawable/chicken_raw" />
+        android:layout_marginEnd="234dp"
+        android:layout_marginBottom="0dp"
+        android:background="@drawable/open_gallery" />
 
     <Button
         android:id="@+id/submitButton"
@@ -54,8 +54,8 @@
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginEnd="119dp"
-        android:layout_marginBottom="0dp"
+        android:layout_marginEnd="105dp"
+        android:layout_marginBottom="12dp"
         android:background="@drawable/submit" />
 
     <com.github.clans.fab.FloatingActionMenu
