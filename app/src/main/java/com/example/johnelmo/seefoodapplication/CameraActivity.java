@@ -14,6 +14,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.github.clans.fab.FloatingActionButton;
@@ -41,6 +42,7 @@ public class CameraActivity extends AppCompatActivity {
     Button capture, submit, selectHelp;
     ImageView mImageView;
     TextView submitResponse;
+    RatingBar ratingBar;
 
     static final String HOME_URL = "http://18.191.74.137";
     static final String FILE_UPLOAD_URL = "http://18.191.74.137/input";
@@ -54,6 +56,7 @@ public class CameraActivity extends AppCompatActivity {
         getSupportActionBar().hide();
         mImageView = findViewById(R.id.imageView);
         submitResponse = findViewById(R.id.submitResponse);
+        ratingBar = findViewById(R.id.ratingBar);
 
         capture = findViewById(R.id.captureButton);
         capture.setOnClickListener(new View.OnClickListener() {
@@ -238,8 +241,24 @@ public class CameraActivity extends AppCompatActivity {
                 } else {
                     classType = "No Food";
                 }
-                int confidence = (int) (abs(score1 - score2) / 4.0 * 100.0);
-                submitResponse.setText("I am " + confidence + "% confident that I see " + classType);
+                //double confidence = abs(score1 - score2) / 4;
+                float confidence = score1 - score2;
+                double rating;
+                if (confidence >= 3.0) { // greater than 3
+                    rating = 6.0; // Certainly It Is Food
+                } else if (confidence >= 2.0) { // between 3 and 2
+                    rating = 5.0; // Very Likely Food
+                } else if (confidence >= 0.5) { // between 2 and 0.5
+                    rating = 4.0; // Likely Food
+                } else if (confidence >= -0.5) { // between 0.5 and -0.5
+                    rating = 3.0; // Unlikely Food
+                } else if (confidence >= -2.0) { // between -0.5 and -2
+                    rating = 2.0; // Very Unlikely Food
+                } else { // less than -2
+                    rating = 1.0; // Definitely Not Food
+                }
+                submitResponse.setText("I see " + classType);
+                ratingBar.setRating((float) rating);
             // if result returned is not null, then print out the error message
             } else if (result != null) {
                 submitResponse.setText(result);
