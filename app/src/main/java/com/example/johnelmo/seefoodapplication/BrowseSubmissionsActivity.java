@@ -11,7 +11,6 @@ import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.GridView;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Toast;
 import android.widget.TextView;
@@ -35,11 +34,8 @@ public class BrowseSubmissionsActivity extends AppCompatActivity {
 
     FloatingActionButton selectHomeFab, selectImageFab, selectCameraFab;
     Button selectHelp;
-
     static final String FILE_DOWNLOAD_URL = "http://18.191.74.137/output";
     TextView responseText;
-    String json_string;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,6 +46,7 @@ public class BrowseSubmissionsActivity extends AppCompatActivity {
         selectImageFab = (FloatingActionButton) findViewById(R.id.fab_Browse_ImageSelect);
         selectCameraFab = (FloatingActionButton) findViewById(R.id.fab_Browse_CameraSelect);
         selectHelp = (Button) findViewById(R.id.HelpIcon);
+        responseText = (TextView) findViewById(R.id.response);
 
         DownloadFileFromServer downloadFileFromServer = new DownloadFileFromServer();
         downloadFileFromServer.execute();
@@ -193,12 +190,13 @@ public class BrowseSubmissionsActivity extends AppCompatActivity {
                 // Making server call
                 HttpResponse response = httpclient.execute(httppost);
                 HttpEntity r_entity = response.getEntity();
-                json_string = EntityUtils.toString(r_entity);
-
+                String json_string = EntityUtils.toString(r_entity);
                 try {
-                    JSONArray jsonArray = new JSONArray(json_string);
+                    JSONObject jsonStringObject = new JSONObject(json_string);
+                    JSONArray jsonArray = jsonStringObject.getJSONArray("images");
                     for (int i = 0; i < jsonArray.length(); i++) {
-                        JSONObject jsonObject = jsonArray.getJSONObject(i);
+                        JSONObject jsonArrayObject = jsonArray.getJSONObject(i);
+                        String objectString = jsonArrayObject.getString("file");
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -216,7 +214,6 @@ public class BrowseSubmissionsActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(String result) {
             super.onPostExecute(result);
-            responseText.setText(json_string);
         }
     }
 
