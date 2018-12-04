@@ -29,24 +29,27 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 public class BrowseSubmissionsActivity extends AppCompatActivity {
 
+    GridView gridview;
     FloatingActionButton selectHomeFab, selectImageFab, selectCameraFab;
     Button selectHelp;
     static final String FILE_DOWNLOAD_URL = "http://18.191.74.137/output";
-    TextView responseText;
+    ArrayList<String> filesUploaded = new ArrayList();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_browse_submissions);
         getSupportActionBar().hide();
+
+        gridview = (GridView) findViewById(R.id.gridview);
         selectHomeFab = (FloatingActionButton) findViewById(R.id.fab_Browse_HomeSelect);
         selectImageFab = (FloatingActionButton) findViewById(R.id.fab_Browse_ImageSelect);
         selectCameraFab = (FloatingActionButton) findViewById(R.id.fab_Browse_CameraSelect);
         selectHelp = (Button) findViewById(R.id.HelpIcon);
-        responseText = (TextView) findViewById(R.id.response);
 
         DownloadFileFromServer downloadFileFromServer = new DownloadFileFromServer();
         downloadFileFromServer.execute();
@@ -78,17 +81,8 @@ public class BrowseSubmissionsActivity extends AppCompatActivity {
                 changeToHelp(view);
             }
         });
-        GridView gridview = (GridView) findViewById(R.id.gridview);
-        gridview.setAdapter(new ImageAdapter(this));
-
-        gridview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            public void onItemClick(AdapterView<?> parent, View v,
-                                    int position, long id) {
-                Toast.makeText(BrowseSubmissionsActivity.this, "" + position,
-                        Toast.LENGTH_SHORT).show();
-            }
-    });
     }
+
     public class ImageAdapter extends BaseAdapter {
         private Context mContext;
 
@@ -110,49 +104,37 @@ public class BrowseSubmissionsActivity extends AppCompatActivity {
 
         // create a new ImageView for each item referenced by the Adapter
         public View getView(int position, View convertView, ViewGroup parent) {
-            ImageView imageView;
+//            ImageView imageView;
+//            if (convertView == null) {
+//                // if it's not recycled, initialize some attributes
+//                imageView = new ImageView(mContext);
+//                imageView.setLayoutParams(new ViewGroup.LayoutParams(300, 300));
+//                imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
+//                imageView.setPadding(8, 8, 8, 8);
+//            } else {
+//                imageView = (ImageView) convertView;
+//            }
+//
+//            imageView.setImageResource(mThumbIds[position]);
+//            return imageView;
+
+            TextView textView;
             if (convertView == null) {
                 // if it's not recycled, initialize some attributes
-                imageView = new ImageView(mContext);
-                imageView.setLayoutParams(new ViewGroup.LayoutParams(300, 300));
-                imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
-                imageView.setPadding(8, 8, 8, 8);
+                textView = new TextView(mContext);
+                textView.setLayoutParams(new ViewGroup.LayoutParams(300, 300));
+                textView.setPadding(8, 8, 8, 8);
             } else {
-                imageView = (ImageView) convertView;
+                textView = (TextView) convertView;
             }
 
-            imageView.setImageResource(mThumbIds[position]);
-            return imageView;
+            textView.setText(mThumbIds[position]);
+            return textView;
         }
 
         // references to our images
-        public Integer[] mThumbIds = {
+        String[] mThumbIds = filesUploaded.toArray(new String[filesUploaded.size()]);
 
-                R.drawable.cooking_robot,R.drawable.cooking_robot_food,
-                R.drawable.cooking_robot,R.drawable.cooking_robot_food,
-                R.drawable.cooking_robot,R.drawable.cooking_robot_food,
-                R.drawable.cooking_robot,R.drawable.cooking_robot_food,
-                R.drawable.cooking_robot,R.drawable.cooking_robot_food,
-                R.drawable.cooking_robot,R.drawable.cooking_robot_food,
-                R.drawable.cooking_robot,R.drawable.cooking_robot_food,
-                R.drawable.cooking_robot,R.drawable.cooking_robot_food,
-                R.drawable.cooking_robot,R.drawable.cooking_robot_food,
-                R.drawable.cooking_robot,R.drawable.cooking_robot_food,
-                R.drawable.cooking_robot,R.drawable.cooking_robot_food,
-                R.drawable.cooking_robot,R.drawable.cooking_robot_food,
-                R.drawable.cooking_robot,R.drawable.cooking_robot_food,
-                R.drawable.cooking_robot,R.drawable.cooking_robot_food,
-                R.drawable.cooking_robot,R.drawable.cooking_robot_food,
-                R.drawable.cooking_robot,R.drawable.cooking_robot_food,
-                R.drawable.cooking_robot,R.drawable.cooking_robot_food,
-                R.drawable.cooking_robot,R.drawable.cooking_robot_food,
-                R.drawable.cooking_robot,R.drawable.cooking_robot_food,
-                R.drawable.cooking_robot,R.drawable.cooking_robot_food,
-                R.drawable.cooking_robot,R.drawable.cooking_robot_food,
-                R.drawable.cooking_robot,R.drawable.cooking_robot_food,
-                R.drawable.cooking_robot,R.drawable.cooking_robot_food,
-                R.drawable.cooking_robot,R.drawable.cooking_robot_food
-        };
     }
 
     public void changeToMainActivity(View view) {
@@ -197,6 +179,7 @@ public class BrowseSubmissionsActivity extends AppCompatActivity {
                     for (int i = 0; i < jsonArray.length(); i++) {
                         JSONObject jsonArrayObject = jsonArray.getJSONObject(i);
                         String objectString = jsonArrayObject.getString("file");
+                        filesUploaded.add(objectString);
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -214,6 +197,14 @@ public class BrowseSubmissionsActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(String result) {
             super.onPostExecute(result);
+
+            gridview.setAdapter(new ImageAdapter(getApplicationContext()));
+            gridview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
+                    Toast.makeText(BrowseSubmissionsActivity.this, "" + position,
+                            Toast.LENGTH_SHORT).show();
+                }
+            });
         }
     }
 

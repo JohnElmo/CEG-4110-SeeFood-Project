@@ -92,12 +92,4 @@
 
     </com.github.clans.fab.FloatingActionMenu>
 
-    <TextView
-        android:id="@+id/response"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:text="TextView" />
-
 </RelativeLayout>
