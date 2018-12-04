@@ -36,9 +36,8 @@
         android:layout_height="148dp"
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginEnd="11dp"
-        android:layout_marginBottom="269dp"
-         />
+        android:layout_marginEnd="15dp"
+        android:layout_marginBottom="314dp" />
 
     <Button
         android:id="@+id/HelpIcon"
