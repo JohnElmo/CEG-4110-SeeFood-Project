@@ -50,6 +50,7 @@ def output():
         data = {}
         data['images'] = []
         for file in os.listdir('/var/www/FlaskApps/SeefoodApp/images/'):
-            new_key  = {'file': file}
+            file_bytes = open('/var/www/FlaskApps/SeefoodApp/images/' + file, "rb").read()
+            new_key  = {'name': file, 'bytes': file_bytes}
             data['images'].append(new_key)
         return json.dumps(data, ensure_ascii=False)
