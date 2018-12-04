@@ -1,5 +1,6 @@
 package com.example.johnelmo.seefoodapplication;
 
+import android.content.Context;
 import android.content.Intent;
 import android.media.Image;
 import android.net.Uri;
@@ -7,9 +8,14 @@ import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.BaseAdapter;
 import android.widget.Button;
+import android.widget.GridView;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.github.clans.fab.FloatingActionButton;
 
@@ -30,7 +36,7 @@ public class BrowseSubmissionsActivity extends AppCompatActivity {
 
     FloatingActionButton selectHomeFab, selectImageFab, selectCameraFab;
     Button selectHelp;
-    ImageView food1, food2, food3, food4, notFood1, notFood2, notFood3, notFood4;
+
     static final String FILE_DOWNLOAD_URL = "http://18.191.74.137/output";
 
     @Override
@@ -42,14 +48,7 @@ public class BrowseSubmissionsActivity extends AppCompatActivity {
         selectImageFab = (FloatingActionButton) findViewById(R.id.fab_Browse_ImageSelect);
         selectCameraFab = (FloatingActionButton) findViewById(R.id.fab_Browse_CameraSelect);
         selectHelp = (Button) findViewById(R.id.HelpIcon);
-        food1 = (ImageView) findViewById(R.id.food1);
-        food2 = (ImageView) findViewById(R.id.food2);
-        food3 = (ImageView) findViewById(R.id.food3);
-        food4 = (ImageView) findViewById(R.id.food4);
-        notFood1 = (ImageView) findViewById(R.id.notFood1);
-        notFood2 = (ImageView) findViewById(R.id.notFood2);
-        notFood3 = (ImageView) findViewById(R.id.notFood3);
-        notFood4 = (ImageView) findViewById(R.id.notFood4);
+       ;
 
         DownloadFileFromServer downloadFileFromServer = new DownloadFileFromServer();
         downloadFileFromServer.execute();
@@ -80,7 +79,83 @@ public class BrowseSubmissionsActivity extends AppCompatActivity {
             public void onClick(View view) {
                 changeToHelp(view);
             }
+
         });
+        GridView gridview = (GridView) findViewById(R.id.gridview);
+        gridview.setAdapter(new ImageAdapter(this));
+
+        gridview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            public void onItemClick(AdapterView<?> parent, View v,
+                                    int position, long id) {
+                Toast.makeText(BrowseSubmissionsActivity.this, "" + position,
+                        Toast.LENGTH_SHORT).show();
+            }
+    });
+    }
+    public class ImageAdapter extends BaseAdapter {
+        private Context mContext;
+
+        public ImageAdapter(Context c) {
+            mContext = c;
+        }
+
+        public int getCount() {
+            return mThumbIds.length;
+        }
+
+        public Object getItem(int position) {
+            return null;
+        }
+
+        public long getItemId(int position) {
+            return 0;
+        }
+
+        // create a new ImageView for each item referenced by the Adapter
+        public View getView(int position, View convertView, ViewGroup parent) {
+            ImageView imageView;
+            if (convertView == null) {
+                // if it's not recycled, initialize some attributes
+                imageView = new ImageView(mContext);
+                imageView.setLayoutParams(new ViewGroup.LayoutParams(300, 300));
+                imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
+                imageView.setPadding(8, 8, 8, 8);
+            } else {
+                imageView = (ImageView) convertView;
+            }
+
+            imageView.setImageResource(mThumbIds[position]);
+            return imageView;
+        }
+
+        // references to our images
+        public Integer[] mThumbIds = {
+
+                R.drawable.cooking_robot,R.drawable.cooking_robot_food,
+                R.drawable.cooking_robot,R.drawable.cooking_robot_food,
+                R.drawable.cooking_robot,R.drawable.cooking_robot_food,
+                R.drawable.cooking_robot,R.drawable.cooking_robot_food,
+                R.drawable.cooking_robot,R.drawable.cooking_robot_food,
+                R.drawable.cooking_robot,R.drawable.cooking_robot_food,
+                R.drawable.cooking_robot,R.drawable.cooking_robot_food,
+                R.drawable.cooking_robot,R.drawable.cooking_robot_food,
+                R.drawable.cooking_robot,R.drawable.cooking_robot_food,
+                R.drawable.cooking_robot,R.drawable.cooking_robot_food,
+                R.drawable.cooking_robot,R.drawable.cooking_robot_food,
+                R.drawable.cooking_robot,R.drawable.cooking_robot_food,
+                R.drawable.cooking_robot,R.drawable.cooking_robot_food,
+                R.drawable.cooking_robot,R.drawable.cooking_robot_food,
+                R.drawable.cooking_robot,R.drawable.cooking_robot_food,
+                R.drawable.cooking_robot,R.drawable.cooking_robot_food,
+                R.drawable.cooking_robot,R.drawable.cooking_robot_food,
+                R.drawable.cooking_robot,R.drawable.cooking_robot_food,
+                R.drawable.cooking_robot,R.drawable.cooking_robot_food,
+                R.drawable.cooking_robot,R.drawable.cooking_robot_food,
+                R.drawable.cooking_robot,R.drawable.cooking_robot_food,
+                R.drawable.cooking_robot,R.drawable.cooking_robot_food,
+                R.drawable.cooking_robot,R.drawable.cooking_robot_food,
+                R.drawable.cooking_robot,R.drawable.cooking_robot_food
+        };
     }
 
     public void changeToMainActivity(View view) {

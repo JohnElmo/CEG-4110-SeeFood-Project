@@ -21,12 +21,12 @@
 
     <ImageView
         android:id="@+id/GalleryPreview"
-        android:layout_width="131dp"
-        android:layout_height="130dp"
+        android:layout_width="148dp"
+        android:layout_height="148dp"
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
         android:layout_marginEnd="11dp"
-        android:layout_marginBottom="287dp" />
+        android:layout_marginBottom="269dp" />
 
     <Button
         android:id="@+id/HelpIcon"
