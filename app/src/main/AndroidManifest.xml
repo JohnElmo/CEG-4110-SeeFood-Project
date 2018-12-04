@@ -38,7 +38,6 @@
         <activity android:name=".CameraActivity" />
         <activity android:name=".BrowseSubmissionsActivity" />
         <activity android:name=".Help"></activity>
-        <activity android:name=".ResultActivity"></activity>
     </application>
 
 </manifest>
