@@ -178,7 +178,7 @@ public class BrowseSubmissionsActivity extends AppCompatActivity {
                     JSONArray jsonArray = jsonStringObject.getJSONArray("images");
                     for (int i = 0; i < jsonArray.length(); i++) {
                         JSONObject jsonArrayObject = jsonArray.getJSONObject(i);
-                        String objectString = jsonArrayObject.getString("file");
+                        String objectString = jsonArrayObject.getString("name");
                         filesUploaded.add(objectString);
                     }
                 } catch (JSONException e) {
