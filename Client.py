@@ -51,5 +51,4 @@ def output():
         data['images'] = []
         for file in os.listdir('/var/www/FlaskApps/SeefoodApp/images/'):
             data['images'].append(file)
-        with io.open('/var/www/FlaskApps/SeefoodApp/jsonFile', mode='w', encoding='utf-8') as jsonResult:
-            return json.dump(data, jsonResults)
+        return json.dumps(data, ensure_ascii=False)
