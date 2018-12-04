@@ -1,15 +1,13 @@
 package com.example.johnelmo.seefoodapplication;
 
 import android.content.Intent;
-import android.media.Image;
-import android.net.Uri;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.github.clans.fab.FloatingActionButton;
 
@@ -18,12 +16,12 @@ import org.apache.http.HttpResponse;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpPost;
-import org.apache.http.entity.mime.MultipartEntity;
-import org.apache.http.entity.mime.content.FileBody;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.util.EntityUtils;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
-import java.io.File;
 import java.io.IOException;
 
 public class BrowseSubmissionsActivity extends AppCompatActivity {
@@ -32,6 +30,9 @@ public class BrowseSubmissionsActivity extends AppCompatActivity {
     Button selectHelp;
     ImageView food1, food2, food3, food4, notFood1, notFood2, notFood3, notFood4;
     static final String FILE_DOWNLOAD_URL = "http://18.191.74.137/output";
+    TextView responseText;
+    String json_string;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,6 +51,7 @@ public class BrowseSubmissionsActivity extends AppCompatActivity {
         notFood2 = (ImageView) findViewById(R.id.notFood2);
         notFood3 = (ImageView) findViewById(R.id.notFood3);
         notFood4 = (ImageView) findViewById(R.id.notFood4);
+        responseText = (TextView) findViewById(R.id.response);
 
         DownloadFileFromServer downloadFileFromServer = new DownloadFileFromServer();
         downloadFileFromServer.execute();
@@ -118,14 +120,15 @@ public class BrowseSubmissionsActivity extends AppCompatActivity {
                 // Making server call
                 HttpResponse response = httpclient.execute(httppost);
                 HttpEntity r_entity = response.getEntity();
+                json_string = EntityUtils.toString(r_entity);
 
-                int statusCode = response.getStatusLine().getStatusCode();
-                if (statusCode == 200) {
-                    // Server response
-                    responseString = EntityUtils.toString(r_entity);
-                } else {
-                    responseString = "Error occurred! Http Status Code: "
-                            + statusCode + " -> " + response.getStatusLine().getReasonPhrase();
+                try {
+                    JSONArray jsonArray = new JSONArray(json_string);
+                    for (int i = 0; i < jsonArray.length(); i++) {
+                        JSONObject jsonObject = jsonArray.getJSONObject(i);
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
                 }
 
             } catch (ClientProtocolException e) {
@@ -140,6 +143,7 @@ public class BrowseSubmissionsActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(String result) {
             super.onPostExecute(result);
+            responseText.setText(json_string);
         }
     }
 
