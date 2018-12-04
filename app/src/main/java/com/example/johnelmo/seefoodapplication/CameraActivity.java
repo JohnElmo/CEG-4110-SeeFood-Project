@@ -80,8 +80,7 @@ public class CameraActivity extends AppCompatActivity {
                 }
             }
         });
-        //capture.setBackgroundResource(R.drawable.chicken_raw);
-        //robot.setBackgroundResource(R.drawable.cooking_robot_just_pan);
+
 
         selectHomeFab = (FloatingActionButton) findViewById(R.id.fab_Camera_HomeSelect);
         selectImageFab = (FloatingActionButton) findViewById(R.id.fab_Camera_ImageSelect);
@@ -183,10 +182,10 @@ public class CameraActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
        if (requestCode == REQUEST_TAKE_PHOTO && resultCode == RESULT_OK) {
-           int thumbSize = 64;
-           //Bitmap thumbBitmap= ThumbnailUtils.extractThumbnail(BitmapFactory.decodeFile(mCurrentPhotoPath),
-            //       thumbSize, thumbSize);
-           //mImageView.setImageBitmap(thumbBitmap);
+           int thumbSize = 128;
+           Bitmap thumbBitmap = ThumbnailUtils.extractThumbnail(BitmapFactory.decodeFile(mCurrentPhotoPath),
+                  thumbSize, thumbSize);
+           mImageView.setImageBitmap(thumbBitmap);
        }
    }
 
